@@ -39,7 +39,9 @@ print(monthly_aapl)  # Print `monthly_aapl`
 import matplotlib.pyplot as plt  # Import Matplotlib's `pyplot` module as `plt`
 
 aapl['Close'].plot(grid=True)  # Plot the closing prices for `aapl`
+plt.savefig('Time_Series.png')
 plt.show()  # Show the plot
+
 
 #
 # COMMON FINANCIAL ANALYSIS
@@ -57,6 +59,7 @@ print(daily_log_returns)  # Print daily log returns
 
 # Visualizing daily percent changes
 daily_pct_change.hist(bins=50)  # Plot the distribution of `daily_pct_c`
+plt.savefig('Daily_Percent_Changes.png')
 plt.show()
 print(daily_pct_change.describe())  # Pull up summary statistics
 
@@ -66,6 +69,7 @@ print(cum_daily_return)
 
 # Plot the cumulative daily returns
 cum_daily_return.plot(figsize=(12, 8))
+plt.savefig('Cumlative_daily_returns.png')
 plt.show()
 
 # Resample the cumulative daily return to cumulative monthly return
@@ -95,9 +99,11 @@ daily_close_px = all_data[['Adj Close']].reset_index().pivot('Date', 'Ticker', '
 # Calculate the daily percentage change for `daily_close_px`
 daily_pct_change = daily_close_px.pct_change()
 daily_pct_change.hist(bins=50, sharex=True, figsize=(12, 8))  # Histogram
+plt.savefig('Daily_Percentage_Change_Histogram.png')
 plt.show()
 
 pd.plotting.scatter_matrix(daily_pct_change, diagonal='kde', alpha=0.1, figsize=(12, 12))  # Scatter Matrix
+plt.savefig('Daily_Percentage_Change_Scatter.png')
 plt.show()
 
 # Moving Windows
@@ -109,12 +115,14 @@ print(moving_avg[-10:])  # Inspect the result
 aapl['42'] = adj_close_px.rolling(window=40).mean()  # Short moving window rolling mean
 aapl['252'] = adj_close_px.rolling(window=252).mean()  # Long moving window rolling mean
 aapl[['Adj Close', '42', '252']].plot()  # Plot the adjusted closing price, the short and long windows of rolling means
+plt.savefig('Moving_Window_Rolling.png')
 plt.show()
 
 # Volatility Calculation
 min_periods = 75  # Define the minimum of periods to consider
 vol = daily_pct_change.rolling(min_periods).std() * np.sqrt(min_periods)  # Calculate the volatility
 vol.plot(figsize=(10, 8))  # Plot the volatility
+plt.savefig('Volatility.png')
 plt.show()
 
 #
@@ -149,15 +157,18 @@ x = np.linspace(ax[0], ax[1] + 0.01)  # Initialize `x`
 # Plot the regression line
 plt.plot(x, model.params[0] + model.params[1] * x, 'b', lw=2)
 
+
 # Customize the plot
 plt.grid(True)
 plt.axis('tight')
 plt.xlabel('Apple Returns')
 plt.ylabel('Microsoft returns')
+plt.savefig('Ordinary_Least_Square_Regression.png')
 plt.show()
 
 # Plot the rolling correlation
 return_data['MSFT'].rolling(window=252).corr(return_data['AAPL']).plot()
+plt.savefig('Rolling_Correlation.png')
 plt.show()
 
 #
@@ -200,6 +211,7 @@ ax1.plot(signals.loc[signals.positions == -1.0].index,
          signals.short_mavg[signals.positions == -1.0],
          'v', markersize=10, color='k')
 
+plt.savefig('Moving_Average_Crossover.png')
 plt.show()
 
 #
@@ -243,4 +255,5 @@ ax1.plot(portfolio.loc[signals.positions == -1.0].index,
          portfolio.total[signals.positions == -1.0],
          'v', markersize=10, color='k')
 
+plt.savefig('Backtesting.png')
 plt.show()

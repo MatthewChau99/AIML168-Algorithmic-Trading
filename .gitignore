@@ -222,3 +222,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.gitignore
+data/
+models/
+notebooks/
+venv/include/
