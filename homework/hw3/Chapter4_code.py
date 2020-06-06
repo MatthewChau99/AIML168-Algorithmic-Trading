@@ -50,8 +50,10 @@ plt.plot(x, stats.beta.pdf(x, alpha_post, beta_post), label='Posterior(Analytic)
 plt.legend(title="Parameters", loc="best")
 plt.xlabel("$\\theta$, Fairness")
 plt.ylabel("Density")
+plt.savefig('beta.png')
 plt.show()
 
 # Show the trace plot
 pymc3.traceplot(trace)
+plt.savefig('trace_plot.png')
 plt.show()
