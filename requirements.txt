@@ -1,3 +1,5 @@
+seaborn
+scipy
 numpy
 matplotlib
 pandas
